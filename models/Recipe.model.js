@@ -34,7 +34,7 @@ const recipeSchema = new Schema({
   },
   created: {
     type: Date,
-    default: currentDate,
+    default: Date.now,
   },
   
 });

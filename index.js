@@ -15,9 +15,28 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
   })
+  /*
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
-  })
+    return Recipe.create({
+      title: 'ensalada césar',
+      level: "Easy Peasy",
+      ingredients: ["lechuga", "pollo", "queso", "salsa"],
+      cuisine: "española",
+      dishType: "snack",
+      duration: 5,
+      creator: "Dani",
+    }) 
+   })
+   
+   .then((response) => {
+     console.log(response.title);
+    })
+    */
+
+
+
+
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
