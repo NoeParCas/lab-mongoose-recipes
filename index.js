@@ -7,10 +7,12 @@ const data = require('./data');
 
 const MONGODB_URI = 'mongodb://localhost:27017/recipe-app';
 
+let connection;
 // Connection to the database "recipe-app"
 mongoose
   .connect(MONGODB_URI)
   .then(x => {
+    connection = x
     console.log(`Connected to the database: "${x.connection.name}"`);
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany()
@@ -34,16 +36,33 @@ mongoose
     */
 
     .then (() => {
-      Recipe.insertMany(data)
-      //console.log(data)
+      return Recipe.insertMany(data)
+      //console.log(data);
     })
     .then((response) => {
-      console.log(response);
+      response.forEach((item) => {
+        console.log(item.title); 
+      })
+      return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese" }, {duration: 100}, {new: true})
      })
 
+     .then ((response) => {
+       console.log("Duracion actualizada", response);
+       return Recipe.deleteOne({title: "Carrot Cake"})
+     })
 
+     .then((response) => {
+       console.log("No queda cake!", response);
+       return mongoose.connection.close(); // bien, sobre mongoose
+       // return connection.disconnect()
+     })
 
+     .then((response) => {
+       console.log(response)
+    })
 
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+ 
