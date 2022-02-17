@@ -33,6 +33,13 @@ mongoose
     })
     */
 
+    .then (() => {
+      Recipe.insertMany(data)
+      //console.log(data)
+    })
+    .then((response) => {
+      console.log(response);
+     })
 
 
 
